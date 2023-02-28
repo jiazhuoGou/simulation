@@ -10,7 +10,7 @@ from sklearn.metrics import pairwise_distances
 # 生成样本数据
 # centers=[[1, 0, 0, 2, 1], [0, 2, 0, 1, 0], [2, 8, 0, 1, 8], [10, 2, 3, 8, 2], [9, 1, 2, 3, 0]]
 centers = [[-2, -8], [-1, 7], [6, 5], [9, 8], [0, 2.3]]
-X, labels = make_blobs(n_samples=300, n_features=2, centers=centers, cluster_std=[0.2, 0.4, 0.6, 0.3, 0.3])
+X, labels = make_blobs(n_samples=50, n_features=2, centers=centers, cluster_std=[0.2, 0.4, 0.6, 0.3, 0.3])
 
 # 计算相似度矩阵，这里使用公式(8)
 def w(x, y, sigma=2.50):
