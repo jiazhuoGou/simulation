@@ -1,28 +1,18 @@
-'''
-Author: jiazhuoGou goujz@qq.com
-Date: 2023-02-28 20:45:59
-LastEditors: jiazhuoGou goujz@qq.com
-LastEditTime: 2023-03-03 16:39:48
-FilePath: \clustering\SpectralClustering.py
-Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
-'''
-import os
-
-import matplotlib
-import matplotlib.pyplot as plt
 import numpy as np
-from sklearn.cluster import KMeans, SpectralClustering
+import matplotlib.pyplot as plt
+import os
 from sklearn.datasets import make_blobs
 from sklearn.metrics import pairwise_distances
+from sklearn.cluster import KMeans
+from sklearn.cluster import SpectralClustering
 
 # 生成样本数据
 # centers=[[1, 0, 0, 2, 1], [0, 2, 0, 1, 0], [2, 8, 0, 1, 8], [10, 2, 3, 8, 2], [9, 1, 2, 3, 0]]
 centers = [[-2, -8], [-1, 7], [6, 5], [9, 8], [0, 2.3]]
-X, labels = make_blobs(n_samples=4, n_features=2, centers=centers, cluster_std=[0.2, 0.4, 0.6, 0.3, 0.3])
+X, labels = make_blobs(n_samples=300, n_features=2, 
+                    centers=centers, 
+                    cluster_std=[0.2, 0.4, 0.6, 0.3, 0.3])
 
-print(X)
-print('--------------------------------\n')
-print(labels)
 
 # 计算相似度矩阵，这里使用公式(8)
 def w(x, y, sigma=2.50):
@@ -34,13 +24,6 @@ W = pairwise_distances(X, metric=w)
 # 计算度矩阵
 D = np.diag(W.sum(axis=1))
 
-
-
-
-
-
-
-'''
 # 计算拉普拉斯矩阵
 L = D - W
 # 拉普拉斯矩阵规范化，不计算也行
@@ -68,11 +51,4 @@ y_pred = km.fit_predict(Q_abs)
 
 # 根据预测的标签画出所有的样本
 plt.scatter(X[:,0], X[:,1], c=y_pred)
-
-x = np.arange(0, 5, 0.1)
-y = np.sin(x)
-plt.plot(x, y)
-matplotlib.pyplot.show()
-
-print("\n================================")
-'''
+plt.show()
