@@ -2,15 +2,16 @@
 Author: jiazhuoGou goujz@qq.com
 Date: 2023-03-03 16:32:35
 LastEditors: jiazhuoGou goujz@qq.com
-LastEditTime: 2023-03-03 20:08:10
+LastEditTime: 2023-03-03 21:06:29
 FilePath: \clustring\pre.py
 Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 '''
+import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.cluster import KMeans
 from sklearn.datasets import make_blobs
 from sklearn.metrics import pairwise_distances
-import matplotlib.pyplot as plt
+
 
 # 计算相似度矩阵，这里使用公式(8)
 def w(x, y, sigma=2.50):
