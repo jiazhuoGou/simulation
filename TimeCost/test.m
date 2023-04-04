@@ -15,26 +15,23 @@ matrix = [1, 2, 4, 1;
         score = 0;
     end
 
-
-candiate = CalcCanNet(UAV(11,:));
-dis = CalcDis(UAV(11, :), UAV(12,:));
-dis2 = CalcDis(UAV(11, :), BS(19,:));
-
-snr = CalcSNRU2U(UAV(11, :), UAV(12,:));
-snr2 = CalcSNRU2B(UAV(11, :), BS(19,:));
-tar = TOPSIS(candiate);
-I =  abs(normrnd(1.5,sqrt(1)));
-Y = [1, 2, 3, 4, 5];
-fun(Y);
-function [X] = fun(Y)
-    X = Y; 
-    for i = 1 : 5
-        X = X + 10;
-        disp(X);
-    end
     
-    
-end
+A =      [1,2,7;
+         2,3, 6;  
+          3,4,9
+]
+col_mean = mean(A, 1); % 求出每列的均值
+B = bsxfun(@rdivide, A, col_mean); % 每列的数据都除以对应列的均值，得到新的矩阵 B
+Y = [max(B(:,1)), max(B(:,2)), max(B(:,3))];
+    n = size(B,1);
+    array = reshape(y, [n, 1]) - B; % 极差矩阵
+    a = min(array); % 关联系数
+    b = max(array);
+    grey_d = mean((a + 0.5 * b) ./ (array + 0.5 * b), 1); %灰色关联度
+    weights = grey_d ./ sum(grey_d);
+
+    % 归一化前的得分
+    s = sum(x .* weights', 2); 
 
 
     
