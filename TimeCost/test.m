@@ -17,21 +17,24 @@ matrix = [1, 2, 4, 1;
 
     
 A =      [1,2,7;
-         2,3, 6;  
-          3,4,9
+         2, 3, 6;  
+          3,4, 9
 ]
 col_mean = mean(A, 1); % 求出每列的均值
 B = bsxfun(@rdivide, A, col_mean); % 每列的数据都除以对应列的均值，得到新的矩阵 B
-Y = [max(B(:,1)), max(B(:,2)), max(B(:,3))];
+y = max(B,[],2);
+array = y - B;
     n = size(B,1);
-    array = reshape(y, [n, 1]) - B; % 极差矩阵
-    a = min(array); % 关联系数
-    b = max(array);
-    grey_d = mean((a + 0.5 * b) ./ (array + 0.5 * b), 1); %灰色关联度
-    weights = grey_d ./ sum(grey_d);
 
-    % 归一化前的得分
-    s = sum(x .* weights', 2); 
+
+      a = min(array); % 关联系数
+      b = max(array);
+      grey_d = mean((a + 0.5 * b) ./ (array + 0.5 * b), 1); %灰色关联度
+      weights = grey_d ./ sum(grey_d);
+  
+%      % 归一化前的得分
+      s = sum(B .* weights', 2); 
+      %s = s ./ sum(s);
 
 
     

@@ -17,10 +17,50 @@ for i = 101 : uav_rows + 100
     if ~ismember(selected_numbers, uav(8)) % 如果该无人机不在，那么不用回传
         continue;
     end
+    t1 = clock();
     tic;
     candiate_net = CalcCanNet_GRA(uav); % 因为灰色关联也是那些
     target_net = GRA_select(candiate_net);
-
+    flag = false;
+    % 遍历target, 还是要优先  判断接入网络资源是否足够，选择资源够的接入，并且更新资源快
+    % 需要接入无人机才接入，在候选网络的时候应该要更改
+    for j = 1 : size(target_net, 1)
+        ap_id = target_net(1);
+        if ap_id < 100
+            if DATA(i-100, 3) == 1 &&  BS(ap_id, 7) >= 2 % 说明这个基站可以接小数据
+                BS(ap_id, 7) = BS(ap_id,7) - 2; % 更新资源快
+                best_net = target_net(j,:); % 第j个就是最优的
+                flag = true;
+                break;
+            elseif DATA(i-100, 3) == 2 && BS(ap_id, 7) >= 5 % 说明可以接大数据
+                BS(ap_id, 7) = BS(ap_id,7) - 5; % 更新资源快
+                best_net = target_net(j,:); % 第j个就是最优的
+                flag = true;
+                break;
+            end
+        else
+            if DATA(i-100, 3) == 1 && UAV(ap_id - 100, 5) >= 2
+                UAV(ap_id - 100, 5) = BS(ap_id - 100,5) - 2;
+                best_net = target_net(j,:);
+                flag = true;
+                break;
+            elseif DATA(i-100, 3) == 2 && UAV(ap_id - 100, 5) >= 5
+                BS(ap_id - 100, 5) = BS(ap_id - 100,5) - 5;
+                best_net = target_net(j,:);
+                flag = true;
+                break;
+            end
+        end
+    end % 候选网络的j循环
+     % 都不是选一个负载率最低的
+    if ~flag
+        target_net = sortrows(target_net, 2, "ascend");
+        best_net  = target_net(1);
+    end
+    t2 = clock;
+    elapsed_time = toc;
+    time_cost = time_cost + elapsed_time;
+    
 end % 整个大的for循环
 
 
@@ -41,6 +81,14 @@ function [CanNet] = CalcCanNet_GRA(uav)
     BS_NUM = size(BS1, 1);
     DATA_NUM = size(DATA1, 1);
     CanNet_Temp = [];
+
+    data_type = 0;
+    for i = 1 : size(DATA1, 1);
+        if DATA1(i, 1) ==  uav(8)
+            uav(8) = DATA1(i, 1);
+            data_type = DATA1(i, 3);
+        end
+    end
 
     % 先把能够连接的基站找出来，跟那个多属性决策是一样的
      % 首先判断有哪些接入点可以接入，选好了之后再来计算那三个参数，最后返回
@@ -82,7 +130,8 @@ function [CanNet] = CalcCanNet_GRA(uav)
             RSS(i) = rss;
         end
     end
-    RSS = max(RSS) - RSS; % 正向化指标，因为RSS是一个负数
+    M = max(abs(RSS - 0)); % 正向化指标，因为RSS是一个负数
+    RSS = 1 - abs(RSS) ./ M;
 
 
     % QoE
@@ -112,20 +161,26 @@ function [TargetNet] = GRA_select(CanNet)
     % 这是一个N行4列的矩阵，后3列才是有用的
     
     % 参数预处理，每一列除以这一列的均值
-    CanNet_temp = CanNet(:,2:4)
+    CanNet_temp = CanNet(:,2:4);
     col_mean = mean(CanNet_temp, 1); % 求出每列的均值 ，第一类id不要动
     B = bsxfun(@rdivide, CanNet_temp, col_mean); % B是不带id的有用矩阵
     
     % 将每行的最大值抽出来组成一个新的母序列
+    y = max(B,[],2);
     n = size(B, 1);
-    y = [max(B(:,1)), max(B(:,2)), max(B(:,3))];
-    array = reshape(y, [n, 1]) - B; % 极差矩阵
+    array = y - B; % 极差矩阵
     a = min(array); % 关联系数
     b = max(array);
     grey_d = mean((a + 0.5 * b) ./ (array + 0.5 * b), 1); %灰色关联度
     weights = grey_d ./ sum(grey_d);
 
     % 归一化前的得分
-    s = sum(x .* weights', 2);
+    s  = zeros(n, 1);
+    for i = 1 : n
+        s(i) = weights(1) * B(i,1) + weights(2) * B(i,2) + weights(3) * B(i,3);
+    end
+    s = s ./ sum(s);
+    TargetNet = [CanNet(:,1), B, s]; 
+    TargetNet = sortrows(TargetNet, 5, 'descend'); %第一个就是最好的
 end
 

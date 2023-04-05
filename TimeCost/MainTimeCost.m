@@ -29,9 +29,11 @@ for i = 1 : 4
 
     % 自己的算法
     time_cost_total(1, i) = BLQoE(selected_numbers);
+    disp('BlQoeE');
     
     % 对比算法1 ahpsaw
     time_cost_total(2, i) = AHPSAW(selected_numbers);
+    disp('AHPSAW');
 
     % 对比算法2 灰色关联GRA
     time_cost_total(3, i) = GRA(selected_numbers);
