@@ -16,7 +16,7 @@ DATA = readmatrix('D:\simulation\data\InfoData.xlsx','Sheet','InfoDataSheet');
 [uav_rows, uav_cols] = size(UAV);
 [bs_rows, bs_cols] = size(BS);
 [data_rows, data_cols] = size(DATA);
-algorithm_counts = 3;
+algorithm_counts = 4;
 % 每行是一个算法的时间开销，每列是各算法在确定号无人机个数的时候平均的开销时间
 time_cost_total = zeros(algorithm_counts, 4);
 
@@ -37,7 +37,7 @@ for i = 1 : 4
 
     % 对比算法2 灰色关联GRA
     time_cost_total(3, i) = GRA(selected_numbers);
-
+    disp('GRA');
 
     % 对比算法3 E-FMADM 增强模糊逻辑
     time_cost_total(4, i) = 0;

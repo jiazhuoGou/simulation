@@ -5,6 +5,6 @@ function [ RateU2U ] = CalcRate(  snr_ratio )
     
     
     RateU2U = B * log2(1 + snr_ratio); % mbps
-    RateU2U = RateU2U * 0.45;
+
 end
 

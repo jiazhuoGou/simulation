@@ -14,27 +14,12 @@ matrix = [1, 2, 4, 1;
     else
         score = 0;
     end
-
-    
-A =      [1,2,7;
-         2, 3, 6;  
-          3,4, 9
-]
-col_mean = mean(A, 1); % 求出每列的均值
-B = bsxfun(@rdivide, A, col_mean); % 每列的数据都除以对应列的均值，得到新的矩阵 B
-y = max(B,[],2);
-array = y - B;
-    n = size(B,1);
+tic;
+%cluster = ConstructCluster(UAV(6,:));
+candiate = CalcCanNet(UAV(6,:));
+candiate2 = CalcCanNet_SimpleAdditiveWeighting_test(UAV(6,:));
+toc;
+elapsed_time = toc;
 
 
-      a = min(array); % 关联系数
-      b = max(array);
-      grey_d = mean((a + 0.5 * b) ./ (array + 0.5 * b), 1); %灰色关联度
-      weights = grey_d ./ sum(grey_d);
   
-%      % 归一化前的得分
-      s = sum(B .* weights', 2); 
-      %s = s ./ sum(s);
-
-
-    

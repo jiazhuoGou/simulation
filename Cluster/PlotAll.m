@@ -1,7 +1,7 @@
 
-InfoBs;
-InfoUAV
-InfoData;
+ InfoBs;
+ InfoUAV
+ InfoData;
 
 UAV = readmatrix('D:\simulation\data\InfoUAV.xlsx','Sheet','InfoUAVSheet');
 BS = readmatrix('D:\simulation\data\InfoBs.xlsx','Sheet','InfoBsSheet');
@@ -11,7 +11,7 @@ S = 50;
 axis ( [0,2000, 0, 2000,  0, 100]);
 %% 首先画基站
 bs = BS(:,1:3);
-scatter3(bs(:,1), bs(:,2), bs(:,3), S, "red", 'o',  "filled");hold on;   % 用正方形表示节点   
+scatter3(bs(:,1), bs(:,2), bs(:,3), S, "red", 'o',  "filled");hold on;   % 用正方形表示节点  红色基站 
 
 %% 所有无人机
 Uav= UAV(:,1:3);

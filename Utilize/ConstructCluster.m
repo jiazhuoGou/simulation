@@ -25,10 +25,10 @@ function [ cluster ] = ConstructCluster( uav )
     
     
     %% 对邻居节点到基站进行通信资源检测
-    neighbors_com_res = zeros(neighbors_num, 1);    % 暂时存储邻居无人机到基站的分数
-    for i = 1 : neighbors_num
-        neighbors_com_res(i) = U2BComResDec(neighbors(i, :));
-    end
+%     neighbors_com_res = zeros(neighbors_num, 1);    % 暂时存储邻居无人机到基站的分数
+%     for i = 1 : neighbors_num
+%         neighbors_com_res(i) = U2BComResDec(neighbors(i, :));
+%     end
     
     %% 对当前无人机到邻居无人机的链路质量检测
     neighbors_link_dec = zeros(neighbors_num, 1);   % 暂时存储无人机到无人机的分数
@@ -37,31 +37,27 @@ function [ cluster ] = ConstructCluster( uav )
         neighbors_link_dec(i) = U2UComResDec(uav, neighbors(i,:));
     end
     
-    %% 水平拼接得到综合评分矩阵
-    %neighbor_total_score = [neighbors_link_dec, neighbors_com_res];
-    
     %% 对上面两个列向量继续加权评分，得到该无人机与其邻居节点的综合评分
-    w1 = 0.6;
-    w2 = 0.4;
-    neighbor_total_score = zeros(neighbors_num, 1);
-    for i = 1 : neighbors_num
-       neighbor_total_score(i) = w1 * neighbors_com_res(i) + w2 * neighbors_link_dec(i);  
-    end
+%     w1 = 0.6;
+%     w2 = 0.4;
+%     neighbor_total_score = zeros(neighbors_num, 1);
+%     for i = 1 : neighbors_num
+%        neighbor_total_score(i) = w1 * neighbors_com_res(i) + w2 * neighbors_link_dec(i);  
+%     end
     
     %% 给邻居节点赋值上自己原本的id
-    neighbor_id = zeros(1, neighbors_num)'; % 邻居编号
-    for i = 1 : neighbors_num
-        neighbor = neighbors(i, :);
-        neighbor_id(i) = neighbor(8); % 第8列是无人机编号
-    end
+%     neighbor_id = zeros(1, neighbors_num)'; % 邻居编号
+%     for i = 1 : neighbors_num
+%         neighbor = neighbors(i, :);
+%         neighbor_id(i) = neighbor(8); % 第8列是无人机编号
+%     end
     
+    % 根据链路质量排序，直接选择前三个 
     
-    
+    cluster = neighbors;
     %% 直接返回另据节点
-    cluster = horzcat( neighbors, neighbor_total_score);
-    %temp = sortrows(temp, 10);
-    %temp = temp(neighbors_num - 4:neighbors_num, :);
-    cluster = cluster(:,1:9);    
+    %cluster = horzcat( neighbors, neighbor_total_score);
+    %cluster = cluster(:,1:9);    
     
 end
 

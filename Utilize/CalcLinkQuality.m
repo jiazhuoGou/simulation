@@ -1,7 +1,7 @@
 function [ LinkQuality ] = CalcLinkQuality(  snr_db, rate )
 %CALCLINKQUALITY 返回一个速率和误包率的向量
 %   计算i到j的链路质量
-    %per = 0;
+
     %% 首先判断j是无人机还是基站
     per = CalcPer(snr_db);  % 转化为极大型，转化为个位数
     per = 10 * (1 -per);

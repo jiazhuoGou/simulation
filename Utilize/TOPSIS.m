@@ -1,6 +1,6 @@
 function [ TargetNet ] = TOPSIS( CanNet )
-%TOPSIS 输入一个候选网络矩阵，n行4列，第一列是接入点编号
-%   输出一个排好序的矩阵，那么就代表选网完成
+%TOPSIS 输入一个候选网络矩阵，n行5列，第一列是接入点编号
+%   输出一个排好序的矩阵，那么就代表选网完成 n行6列
     
     [UAV_CanNet_Rows, UAV_CanNet_Cols] = size(CanNet);
     %% 数据正向化,这里不用，只需要把第一列id列排除
@@ -42,13 +42,16 @@ function [ TargetNet ] = TOPSIS( CanNet )
 %     end
     
     % 整行按照第4列升序排列，距离越小说明到理想解越近，第一个就是最好的
-    TargetNet = sortrows(TargetNet, 4, 'ascend');
+    TargetNet = [CanNet, TargetNet(:,4)];
+    %[~, idx] = max(TargetNet(:, 6));
+    %TargetNet([1, idx], :) = TargetNet([idx, 1], :);
+    TargetNet = sortrows(TargetNet, 6, 'ascend');
+
+
     if UAV_CanNet_Rows >= 2 && TargetNet(1,1) > 100 && TargetNet(2, 1) < 100 && TargetNet(2,4) - 0.05 <= TargetNet(1, 4)
         % 差距不大还是要选基站
         TargetNet([1 2], :) = TargetNet([2 1], :); 
     end
-    
-
 end
 
 %% 数据正向化

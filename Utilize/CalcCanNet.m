@@ -23,39 +23,38 @@ flag = false;
 for i = 1 : BS_NUM
     bs = BS(i, :);
     db = CalcSNRU2B(uav, bs);
-    if db(1) > 8 && CalcDis(uav, bs) <= bs(4)
+    if  CalcDis(uav, bs) <= bs(4) || db(1) >= 10
         CanNet_Temp = [CanNet_Temp ; bs];
         rate_temp = CalcRate(db(1));
-        if data_type == 2 && bs(7) / bs(6) >= 0.5  &&  rate_temp >= 6 && CalcLinkQuality(sb(2), rate_temp) >= 0
+        if data_type == 2 && bs(7) >= 6 && rate_temp >= 10 
             flag = true;
-        end
-        if data_type == 1 && rate_temp >= 2
+        elseif data_type == 1 && rate_temp >= 6
             flag = true;
         end
     end
 end
 
-% 如果关联的基站剩余量够50%，并且速率超过6Mbps，并且链路超过10直接接最好的基站不需要无人机
-if ~flag
+% 如果关联的基站剩余量够50%，并且速率超过12Mbps，并且链路超过10 ,qoe超过5直接接最好的基站不需要无人机
+if flag == false
     CanNet_Temp = [CanNet_Temp ; ConstructCluster(uav)]; %
 end
 
-UAV_CanNet_Size = size(CanNet_Temp, 1);
+CanNet_Temp_Size = size(CanNet_Temp, 1);
 
 
 %%  先把速率，链路算出来
-Rate = zeros(UAV_CanNet_Size, 1);
-LinkQuality = zeros(UAV_CanNet_Size, 1);
-for i = 1 : UAV_CanNet_Size
+Rate = zeros(CanNet_Temp_Size, 1);
+LinkQuality = zeros(CanNet_Temp_Size, 1);
+for i = 1 : CanNet_Temp_Size
     can_net = CanNet_Temp(i,:);
     if  can_net(3) == 0 %   基站
         snr = CalcSNRU2B(uav, can_net);
-        Rate(i) = CalcRate( snr(2)) * 1.2;
-        LinkQuality(i) = U2UComResDec(uav, can_net);
+        Rate(i) = CalcRate( snr(2));
+        LinkQuality(i) = CalcLinkQuality(snr(1), Rate(i));
     else %  无人机
         snr = CalcSNRU2U(uav, can_net);
         Rate(i) = CalcRate( snr(2));
-        LinkQuality(i) = U2UComResDec(uav, can_net);
+        LinkQuality(i) = CalcLinkQuality(snr(1), Rate(i));
     end
 end
 %% 速率第10列
@@ -63,9 +62,9 @@ end
 %% Link质量第11列
 
 %% 业务匹配度 12列
-BPM = zeros(UAV_CanNet_Size, 1);
+BPM = zeros(CanNet_Temp_Size, 1);
 %   大数据要求3-9Mbps, 小数据要求  0.5-2Mbps
-for i = 1 : UAV_CanNet_Size
+for i = 1 : CanNet_Temp_Size
     if data_type == 1
         e = (Rate(i) - 0.5) / 1.5;
     else
@@ -81,15 +80,15 @@ for i = 1 : UAV_CanNet_Size
 end
 
 
-%% QoE参数融合，先假定 13列
-QoE = zeros(UAV_CanNet_Size, 1); % 传输视频的QoE参考你懂的那篇论文， 越大越好
+%% QoE参数融合， 13列
+QoE = zeros(CanNet_Temp_Size, 1); % 传输视频的QoE参考你懂的那篇论文， 越大越好
 w1 = 0.9;
 w2 = 0.1;
 beta = 400; % 常量
 seta = 0.8; % 常量
 error =  0.05 + (0.11-0.05).*rand(1,1);
 % 450是一分钟的帧数
-for i = 1 : UAV_CanNet_Size
+for i = 1 : CanNet_Temp_Size
     if data_type == 1
         QoE(i) =  w1 * seta * ( log(beta * Rate(i) / 0.5) - error ) + w2 * abs(normrnd(5,sqrt(2)));
     else
@@ -99,7 +98,6 @@ end
 
 
 %% 取id那一列
-%CanNet = [CanNet_Temp, Rate, LinkQuality, BPM, QoE];
 CanNet = CanNet_Temp(:,8);
 CanNet = horzcat(CanNet, Rate, LinkQuality, BPM, QoE );
 
