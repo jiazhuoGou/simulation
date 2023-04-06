@@ -17,7 +17,7 @@ DATA = readmatrix('D:\simulation\data\InfoData.xlsx','Sheet','InfoDataSheet');
 [bs_rows, bs_cols] = size(BS);
 [data_rows, data_cols] = size(DATA);
 algorithm_counts = 3;
-% 每行是一个算法的时间开销，每列是各算法在确定号无人机个数的时候平均的开销时间
+% 每行是一个算法，每列是一个5 10 15 20的掉话次数
 drop_rate_total = zeros(algorithm_counts, 4);
 
 range = 101:120;  % 定义范围

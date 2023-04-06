@@ -3,7 +3,8 @@ function [ cluster ] = ConstructCluster( uav )
 %   生成簇，如果当前节点并不在自组网里，那么构建一个自组网
 %   返回的簇头节点（行向量），
     
-    UAV   = xlsread('D:\simulation\data\InfoUAV.xlsx','InfoUAVSheet'); % 绝对路径
+    UAV = readmatrix('D:\simulation\data\InfoUAV.xlsx', 'Sheet','InfoUAVSheet');
+   
     [uav_num,~] = size(UAV); 
     neighbors = []; % 存储邻居节点，每行是一个邻居
     

@@ -28,15 +28,15 @@ for i = 1 : 4
     selected_numbers = range(rand_indices);  % 根据索引获取对应的整数，即需要回传的无人机
 
     % 自己的算法
-    time_cost_total(1, i) = BLQoE(selected_numbers);
+    time_cost_total(1, i) = BLQoE_TimeCost(selected_numbers);
     disp('BlQoeE');
     
     % 对比算法1 ahpsaw
-    time_cost_total(2, i) = AHPSAW(selected_numbers);
+    time_cost_total(2, i) = AHPSAW_TimeCost(selected_numbers);
     disp('AHPSAW');
 
     % 对比算法2 灰色关联GRA
-    time_cost_total(3, i) = GRA(selected_numbers);
+    time_cost_total(3, i) = GRA_TimeCost(selected_numbers);
     disp('GRA');
 
     % 对比算法3 E-FMADM 增强模糊逻辑

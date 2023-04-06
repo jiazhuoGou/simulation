@@ -26,15 +26,15 @@ for i = 1 : BS_NUM
     if  CalcDis(uav, bs) <= bs(4) || db(1) >= 10
         CanNet_Temp = [CanNet_Temp ; bs];
         rate_temp = CalcRate(db(1));
-        if data_type == 2 && bs(7) >= 6 && rate_temp >= 10 
+        if data_type == 2 && bs(7) / bs(6) >= 0.3 && rate_temp >= 8.5
             flag = true;
-        elseif data_type == 1 && rate_temp >= 6
+        elseif data_type == 1 && rate_temp >= 4
             flag = true;
         end
     end
 end
 
-% 如果关联的基站剩余量够50%，并且速率超过12Mbps，并且链路超过10 ,qoe超过5直接接最好的基站不需要无人机
+% 如果关联的基站剩余量够30%，并且速率超过12Mbps，并且链路超过10 ,qoe超过5直接接最好的基站不需要无人机
 if flag == false
     CanNet_Temp = [CanNet_Temp ; ConstructCluster(uav)]; %
 end
