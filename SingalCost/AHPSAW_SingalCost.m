@@ -1,7 +1,7 @@
 function [singal_cost] = AHPSAW_SingalCost(selected_numbers)
 %AHPSAW 输入：被选中的无人机id
-%   输出：这些id的无人机的回传数据时的总吞吐量，一个数
-% 吞吐量是单位时间内传输的数据量大小
+%   输出：，一个数
+%   信令开销
 
 %  是否接入自组织网络，如果接入自组织网络，则还需要添加自组织网络的信令开销
 %              信令开销为基本的信令开销 + 自组织网络生成和维护的开销。
@@ -41,14 +41,14 @@ for i = 101 : uav_rows + 100
             if DATA(i-100, 3) == 1 &&  BS(ap_id, 7) >= 1 % 说明这个基站可以接小数据
                 BS(ap_id, 7) = BS(ap_id,7) - 1; % 更新资源快
                 best_net = target_net(j,:); % 第j个就是最优的
-                singal_cost = singal_cost  + randi([1,5]) + randi([1,5]) + randi([50,80]); % 信令开销计算
+                singal_cost = singal_cost  + randi([1,5]) + randi([1,5]) + randi([40,70]); % 信令开销计算
                 disp(['无人机 ', num2str(i),'  接入点 : ',num2str(ap_id)]);
                 flag = true;
                 break;
             elseif DATA(i-100, 3) == 2 && BS(ap_id, 7) >= 3 % 说明可以接大数据
                 BS(ap_id, 7) = BS(ap_id,7) - 3; % 更新资源快
                 best_net = target_net(j,:); % 第j个就是最优的
-                singal_cost = singal_cost + randi([1,5]) + randi([1,5]) + randi([50,80]); % 信令开销计算
+                singal_cost = singal_cost + randi([1,5]) + randi([1,5]) + randi([40,70]); % 信令开销计算
                 disp(['无人机 ', num2str(i),'  接入点 : ', num2str(ap_id)]);
                 flag = true;
                 break;
@@ -71,12 +71,12 @@ for i = 101 : uav_rows + 100
             end
         end
     end % 候选网络的j循环
-    % 都不是选一个qoe最高的
+    % 都不是选一个rss最高的
     if ~flag
-        target_net = sortrows(candiate_net, size(candiate_net, 2), "descend");
+        target_net = sortrows(candiate_net, 3, "descend");
         best_net  = target_net(1);
         if (best_net(1) < 100)
-            singal_cost  = singal_cost + randi([1,5]) + randi([1,5]) + randi([50,80]);
+            singal_cost  = singal_cost + randi([1,5]) + randi([1,5]) + randi([40,70]);
         else
             signal_cost = singal_cost +  randi([1,5]) + randi([1,5]) + randi([20,30]) + randi([20,30]) + randi([20,30]) +  randi([60,90]);
         end

@@ -39,14 +39,14 @@ for i = 101 : uav_rows + 100
             if DATA(i-100, 3) == 1 &&  BS(ap_id, 7) >= 1 % 说明这个基站可以接小数据
                 BS(ap_id, 7) = BS(ap_id,7) - 1; % 更新资源快
                 best_net = target_net(j,:); % 第j个就是最优的
-                singal_cost = singal_cost + randi([1,5]) + randi([1,5]) + randi([50,80]);
+                singal_cost = singal_cost + randi([1,5]) + randi([1,5]) + randi([40,70]);
                 disp(['无人机 ', num2str(i),'  接入点 : ', num2str(ap_id)]);
                 flag = true;
                 break;
             elseif DATA(i-100, 3) == 2 && BS(ap_id, 7) >= 3 % 说明可以接大数据
                 BS(ap_id, 7) = BS(ap_id,7) - 3; % 更新资源快
                 best_net = target_net(j,:); % 第j个就是最优的
-                singal_cost = singal_cost + randi([1,5]) + randi([1,5]) + randi([50,80]);
+                singal_cost = singal_cost + randi([1,5]) + randi([1,5]) + randi([40,70]);
                 disp(['无人机 ', num2str(i),'  接入点 : ', num2str(ap_id)]);
                 flag = true;
                 break;
@@ -69,13 +69,12 @@ for i = 101 : uav_rows + 100
             end
         end
     end % 候选网络的j循环
-     % 都不是选一个qoe最高的
+     % 都不是选一个rss最高的
     if ~flag
-        target_net = sortrows(candiate_net, size(candiate_net, 2), "descend");
+        target_net = sortrows(candiate_net, 3, "descend");
         best_net  = target_net(1);
         if (best_net(1) < 100)
-            singal_cost  = singal_cost + randi([1,5]) + randi([1,5]) + randi([50,80]);
-            
+            singal_cost  = singal_cost + randi([1,5]) + randi([1,5]) + randi([40,70]); 
         else
             signal_cost = singal_cost +  randi([1,5]) + randi([1,5]) + randi([20,30]) + randi([20,30]) + randi([20,30]) +  randi([60,90]);
         end

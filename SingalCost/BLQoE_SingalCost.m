@@ -77,8 +77,7 @@ for i = 101 : uav_rows + 100
         target_net = sortrows(candiate_net, 5, "descend");
         best_net  = target_net(1);
         if (best_net(1) < 100)
-            singal_cost  = singal_cost + randi([1,5]) + randi([1,5]) + randi([50,80]);
-            
+            singal_cost  = singal_cost + randi([1,5]) + randi([1,5]) + randi([50,80]);        
         else
             signal_cost = singal_cost +  randi([1,5]) + randi([1,5]) + randi([20,30]) + randi([20,30]) + randi([20,30]) +  randi([60,90]);
         end

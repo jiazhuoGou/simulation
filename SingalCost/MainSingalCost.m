@@ -42,10 +42,9 @@ for i = 1 : 4
     
 
     % 对比算法3 E-FMADM 增强模糊逻辑
-    SingalCost_total(4, i) = 0;
+    SingalCost_total(4, i) = RSR_SingalCost(selected_numbers);
 
     
-
     % 一轮结束，无人机动一下
     UAV = random_fly(UAV, uav_rows);
     DATA = random_datasize_change();
