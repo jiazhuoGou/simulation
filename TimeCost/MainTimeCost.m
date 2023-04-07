@@ -39,9 +39,8 @@ for i = 1 : 4
     time_cost_total(3, i) = GRA_TimeCost(selected_numbers);
     disp('GRA');
 
-    % 对比算法3 E-FMADM 增强模糊逻辑
-    time_cost_total(4, i) = 0;
-
+    % 对比算法3 RSR
+    time_cost_total(4, i) = RSR_TimeCost(selected_numbers);
     
 
     % 一轮结束，无人机动一下

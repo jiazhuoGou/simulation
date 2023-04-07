@@ -13,6 +13,8 @@ DATA = readmatrix('D:\simulation\data\InfoData.xlsx','Sheet','InfoDataSheet');
 %% 数据
 [uav_rows, ~] = size(UAV);
 time_cost = 0;
+
+
 %% 具体流程
 for i = 101 : uav_rows + 100
     uav = UAV(i-100, :); % i是无人机编号
