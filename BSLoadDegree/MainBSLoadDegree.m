@@ -41,8 +41,8 @@ for i = 1 : 4
     BSLoadDegree_total(3, i) = GRA_BSLoadDegree(selected_numbers);
     
 
-    % 对比算法3 E-FMADM 增强模糊逻辑
-    BSLoadDegree_total(4, i) = 0;
+    % 对比算法3 RSR
+    BSLoadDegree_total(4, i) = RSR_BSLoadDegree(selected_numbers);
 
     
 

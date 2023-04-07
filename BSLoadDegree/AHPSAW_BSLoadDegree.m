@@ -58,9 +58,9 @@ for i = 101 : uav_rows + 100
             end
         end
     end % 候选网络的j循环
-    % 都不是选一个qoe最高的
+    % 都不是选一个rss最高的
     if ~flag
-        target_net = sortrows(candiate_net, size(candiate_net, 2), "descend");
+        target_net = sortrows(candiate_net, 3, "descend");
         best_net  = target_net(1);
         if (best_net(1) < 100)
             if  DATA(i-100, 3) == 1
