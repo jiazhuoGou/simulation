@@ -42,7 +42,7 @@ for i = 1 : 4
     QoE_total(3, i) = GRA_Satisfaction(selected_numbers);
     
 
-    % 对比算法3 E-FMADM 增强模糊逻辑
+    % 对比算法3 RSR
     QoE_total(4, i) = RSR_Satisfaction(selected_numbers);
 
     
@@ -54,7 +54,7 @@ for i = 1 : 4
     writematrix(DATA, 'D:\simulation\data\InfoData.xlsx', 'sheet', 'InfoDataSheet', 'writemode', 'replacefile'); 
 
 end
-writematrix(QoE_total,'D:\simulation\BSLoadDegree\BSLoadDegree.xlsx','Sheet','BSLoadDegree', 'WriteMode','replacefile');
+writematrix(QoE_total,'D:\simulation\Satisfaction\Satisfaction.xlsx','Sheet','Satisfaction', 'WriteMode','replacefile');
 
 
 
