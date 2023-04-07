@@ -18,8 +18,6 @@ function [TargetNet] = GRA_Select(CanNet)
     B = bsxfun(@rdivide, CanNet_temp, col_mean); % B是不带id的有用矩阵
     
     
-
-
     % 将每行的最大值抽出来组成一个新的母序列
     y = max(B,[],2);
     n = size(B, 1);

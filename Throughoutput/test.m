@@ -1,2 +1,2 @@
-candiate = SimpleAdditiveWeighting_CalcCanNet(UAV(17,:));
-%tar = SimpleAdditiveWeighting(candiate);
+candiate = GRA_CalcCanNet(UAV(17,:));
+tar = GRA_Select(candiate);

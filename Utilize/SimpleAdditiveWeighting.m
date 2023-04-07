@@ -20,7 +20,7 @@ for i = 1 : size(CanNet, 1)
     score(i) = (1/6) * B(i, 1) + (1/6) * B(i, 2) + (1/6) * B(i, 3) + (1/6) * B(i, 4) + (1/6) * B(i, 5) + (1/6) * B(i,6);
 end
 TargetNet = [CanNet, score];
-TargetNet = sortrows(TargetNet, size(TargetNet), "descend"); % 按照总分降序排列
+TargetNet = sortrows(TargetNet, size(TargetNet,2), "descend"); % 按照总分降序排列
 
 end
 

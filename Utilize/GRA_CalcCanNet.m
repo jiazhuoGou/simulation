@@ -20,7 +20,7 @@ function [CanNet] = GRA_CalcCanNet(uav)
     for i = 1 : BS_NUM % 这里通过计算距离来判定是否可以接入
         db = CalcSNRU2B(uav, BS1(i, :)); 
         dis = CalcDis(uav, BS1(i,:));
-         if (dis >= 0 && dis <= BS1(i, 4)) || (db(1) >= 10) % 第4列是基站半径
+         if (dis >= 0 && dis <= BS1(i, 4)) || (db(1) >= 5) % 第4列是基站半径 GRA必须要多来几行才能算
             CanNet_Temp = [CanNet_Temp ; BS1(i,:)];
         end
     end
@@ -72,6 +72,8 @@ function [CanNet] = GRA_CalcCanNet(uav)
                 BPM(i) = BPM_temp - abs(normrnd(0.1,sqrt(0.05)));
             elseif BPM_temp > 0  
                 BPM(i) = e;
+            else
+                BPM(i) = 0.05 + (0.1 - 0.05) * rand();
             end
         end
 

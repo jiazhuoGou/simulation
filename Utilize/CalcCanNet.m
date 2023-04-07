@@ -74,8 +74,10 @@ for i = 1 : CanNet_Temp_Size
     BPM_temp = temp((e >= 1) + 1);
     if BPM_temp == 1
         BPM(i) = BPM_temp - abs(normrnd(0.1,sqrt(0.05)));
-    else
+    elseif BPM_temp > 0
         BPM(i) = e;
+    else
+        BPM(i) = 0.05 + (0.1 - 0.05) * rand();
     end
 end
 
