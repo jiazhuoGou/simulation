@@ -28,7 +28,7 @@ for i = 1 : 4
     selected_numbers = range(rand_indices);  % 根据索引获取对应的整数，即需要回传的无人机
 
     % 自己的算法
-    disp('-------------BlQoeE-------------');
+    disp('-------------BlQoE-------------');
     Throughput_total(1, i) = BLQoE_Throughput(selected_numbers);
     
     % 对比算法1 ahpsaw
@@ -41,8 +41,8 @@ for i = 1 : 4
     Throughput_total(3, i) = GRA_Throughput(selected_numbers);
     
 
-    % 对比算法3 E-FMADM 增强模糊逻辑
-    Throughput_total(4, i) = 0;
+    % 对比算法3 RSR
+    Throughput_total(4, i) = RSR_Throughput(selected_numbers);
 
     
 

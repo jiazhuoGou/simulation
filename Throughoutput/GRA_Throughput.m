@@ -60,9 +60,9 @@ for i = 101 : uav_rows + 100
     end % 候选网络的j循环
      % 都不是选一个rss最高的
     if ~flag
-        target_net = sortrows(target_net, 3, "descend");
+        target_net = sortrows(candiate_net, 3, "descend");
         best_net  = target_net(1);
-        throughput = throughput + target_net(j, size(target_net, 2)-1) + 2;
+        throughput = throughput + candiate_net(j,3) + 2;
         disp(['无人机 ', num2str(i),'  接入点 : ', num2str(best_net(1))]);
     end
 end % for循环
