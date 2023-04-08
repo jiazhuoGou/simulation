@@ -88,7 +88,7 @@ w1 = 0.9;
 w2 = 0.1;
 beta = 400; % 常量
 seta = 0.8; % 常量
-error =  0.05 + (0.11-0.05).*rand(1,1);
+error =  0.05 + (0.1-0.05).*rand(1,1);
 % 450是一分钟的帧数
 for i = 1 : CanNet_Temp_Size
     if data_type == 1
