@@ -14,7 +14,7 @@ plot(user_num,SingalCost_RSR,  '--^m','LineWidth',1,'DisplayName','\fontname{Tim
 
 % grid on;
 xlabel('\fontname{宋体}无人机终端数量(台)','FontSize',14);
-ylabel('\fontname{宋体}吞吐量\fontname{Times New Roman}(Mbps)','FontSize',14);
+ylabel('\fontname{宋体}信令开销占总资源消耗的比值\fontname{Times New Roman}(%)','FontSize',14);
 hold off;
 lgd = legend;
 lgd.NumColumns = 1;

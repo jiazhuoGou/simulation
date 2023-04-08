@@ -14,7 +14,7 @@ plot(user_num,BSLoadDegree_RSR,  '--^m','LineWidth',1,'DisplayName','\fontname{T
 
 % grid on;
 xlabel('\fontname{宋体}无人机终端数量(台)','FontSize',14);
-ylabel('\fontname{宋体}吞吐量\fontname{Times New Roman}(Mbps)','FontSize',14);
+ylabel('\fontname{宋体}误码率\fontname{Times New Roman}(10^-3)','FontSize',14);
 hold off;
 lgd = legend;
 lgd.NumColumns = 1;
