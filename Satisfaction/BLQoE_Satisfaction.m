@@ -21,7 +21,7 @@ for i = 101 : uav_rows + 100
     end
     candiate_net = CalcCanNet(uav);
     target_net = TOPSIS(candiate_net);
-    target_net = sortrows(target_net, size(target_net, 2)-1 ); % 倒数第二列是qoe，每次找最大的
+    %target_net = sortrows(target_net, size(target_net, 2)-1 ); % 倒数第二列是qoe，每次找最大的
     for j = size(target_net,1)
         ap = target_net(j,:);
         ap_id = ap(1);

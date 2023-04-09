@@ -12,10 +12,10 @@
 
 %%  5G ºê»ùÕ¾
 T5GM_NUM    = 2;
-R_5GM       =   1200;
+R_5GM       =   800;
 B_5GM       =   2;
 Tprb_5GM    =   100;   
-Available_5GM = Tprb_5GM * 0.7;
+Available_5GM = Tprb_5GM * 0.6;
 ID_5GM = (1:1:2)';
 
 
@@ -33,7 +33,7 @@ T5GS_NUM    =   20;
 R_5GS       =   300;
 B_5GS       =   2;
 Tprb_5GS    =   75;
-Available_5GS = Tprb_5GS * 0.8;
+Available_5GS = Tprb_5GS * 0.6;
 ID_5GS = (3:1:22)';
  
 X_5GS       =  [200, 650, 340,   620, 260,   700, 750, 900,  820, 1300, 860,  1160, 1550, 1720, 1460, 1900, 1750, 1580, 200, 430]';

@@ -40,7 +40,6 @@ for i = 1 : 4
     disp('------------------GRA----------------');
     SingalCost_total(3, i) = GRA_SingalCost(selected_numbers);
     
-
     % 对比算法3 E-FMADM 增强模糊逻辑
     SingalCost_total(4, i) = RSR_SingalCost(selected_numbers);
 
@@ -52,6 +51,8 @@ for i = 1 : 4
     writematrix(DATA, 'D:\simulation\data\InfoData.xlsx', 'sheet', 'InfoDataSheet', 'writemode', 'replacefile'); 
 
 end
+SingalCost_total = SingalCost_total / 400;
+%SingalCost_total = SingalCost_total -  0.020000;
 writematrix(SingalCost_total,'D:\simulation\SingalCost\SingalCosts.xlsx','Sheet','SingalCost', 'WriteMode','replacefile');
 
 

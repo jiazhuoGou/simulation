@@ -26,7 +26,7 @@ for i = 1 : BS_NUM
     if  CalcDis(uav, bs) <= bs(4) || db(1) >= 10
         CanNet_Temp = [CanNet_Temp ; bs];
         rate_temp = CalcRate(db(1));
-        if data_type == 2 && bs(7) / bs(6) >= 0.3 && rate_temp >= 8.5
+        if data_type == 2 && bs(7) / bs(6) >= 0.5 && rate_temp >= 9
             flag = true;
         elseif data_type == 1 && rate_temp >= 4
             flag = true;

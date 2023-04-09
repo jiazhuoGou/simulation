@@ -10,11 +10,12 @@ time_cost_M = readmatrix('D:\simulation\TimeCost\TimeCost.xlsx','Sheet','Timecos
 plot(user_num,time_cost_BLQoE, '--or','LineWidth',1,'DisplayName','\fontname{Times New Roman}BLQoE');hold on;
 plot(user_num,time_cost_AHPSAW, '--sb','LineWidth',1,'DisplayName','\fontname{Times New Roman}AHPSAW'); hold on;
 plot(user_num,time_cost_GRA, '--*g','LineWidth',1,'DisplayName','\fontname{Times New Roman}GRA'); hold on;
-plot(user_num,time_cost_M,  '--^m','LineWidth',1,'DisplayName','\fontname{Times New Roman}M'); hold on;
+plot(user_num,time_cost_M,  '--^m','LineWidth',1,'DisplayName','\fontname{Times New Roman}RSR'); hold on;
 
 % grid on;
+%title('无人机终端执行网络选择算法时间开销');
 xlabel('\fontname{宋体}无人机终端数量(台)','FontSize',14);
-ylabel('\fontname{宋体}时间开销\fontname{Times New Roman}(s)','FontSize',14);
+ylabel('\fontname{宋体}时间开销\fontname{Times New Roman}(ms)','FontSize',14);
 hold off;
 lgd = legend;
 lgd.NumColumns = 1;

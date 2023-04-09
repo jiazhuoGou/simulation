@@ -53,6 +53,8 @@ for i = 1 : 4
     writematrix(DATA, 'D:\simulation\data\InfoData.xlsx', 'sheet', 'InfoDataSheet', 'writemode', 'replacefile'); 
 
 end
+BSLoadDegree_total = [BSLoadDegree_total(:,4), BSLoadDegree_total(:,3), BSLoadDegree_total(:,2), BSLoadDegree_total(:,1)];
+BSLoadDegree_total = [BSLoadDegree_total(4,:); BSLoadDegree_total(3,:); BSLoadDegree_total(2,:); BSLoadDegree_total(1,:)];
 writematrix(BSLoadDegree_total,'D:\simulation\BSLoadDegree\BSLoadDegree.xlsx','Sheet','BSLoadDegree', 'WriteMode','replacefile');
 
 

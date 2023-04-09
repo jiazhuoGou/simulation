@@ -5,7 +5,7 @@ user_num             =  [5;10;15;20];
 BSLoadDegree_BLQoE  = readmatrix('D:\simulation\BSLoadDegree\BSLoadDegree.xlsx','Sheet','BSLoadDegree','Range','1:1');
 BSLoadDegree_AHPSAW = readmatrix('D:\simulation\BSLoadDegree\BSLoadDegree.xlsx','Sheet','BSLoadDegree','Range','2:2');
 BSLoadDegree_GRA = readmatrix('D:\simulation\BSLoadDegree\BSLoadDegree.xlsx','Sheet','BSLoadDegree', 'Range','3:3');
-BSLoadDegree_RSR = readmatrix('D:\simulation\BSLoadDegree\BSLoadDegree.xlsx','Sheet','BSLoadDegree','4:4');
+BSLoadDegree_RSR = readmatrix('D:\simulation\BSLoadDegree\BSLoadDegree.xlsx','Sheet','BSLoadDegree','Range','4:4');
 
 plot(user_num,BSLoadDegree_BLQoE, '--or','LineWidth',1,'DisplayName','\fontname{Times New Roman}BLQoE');hold on;
 plot(user_num,BSLoadDegree_AHPSAW, '--sb','LineWidth',1,'DisplayName','\fontname{Times New Roman}AHPSAW'); hold on;

@@ -49,7 +49,7 @@ UAV_Y = [UAV_Y, y];
 UAV = horzcat(UAV_X', UAV_Y');
 
 % 生成Z轴
-UAV_Z = unifrnd(50,100,20,1);
+UAV_Z = unifrnd(30,50,20,1);
 UAV = horzcat(UAV, UAV_Z);
 
 %% 无人机发射功率 4

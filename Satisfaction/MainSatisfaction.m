@@ -54,6 +54,10 @@ for i = 1 : 4
     writematrix(DATA, 'D:\simulation\data\InfoData.xlsx', 'sheet', 'InfoDataSheet', 'writemode', 'replacefile'); 
 
 end
+QoE_total(:,1) = QoE_total(:,1) / 5;
+QoE_total(:,2) = QoE_total(:,2) / 10;
+QoE_total(:,3) = QoE_total(:,3) / 15;
+QoE_total(:,4) = QoE_total(:,4) / 20;
 writematrix(QoE_total,'D:\simulation\Satisfaction\Satisfaction.xlsx','Sheet','Satisfaction', 'WriteMode','replacefile');
 
 

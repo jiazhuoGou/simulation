@@ -19,7 +19,8 @@ for i = 101 : uav_rows + 100
         continue;
     end
     candiate_net = RSR_CalcCanNet(uav); % 参数都是一样的，只是计算方法不一样
-    target_net = RSR(candiate_net);
+    %target_net = RSR(candiate_net);
+    target_net = sortrows(candiate_net, size(candiate_net, 2), 'descend');
     flag = false;
     % 遍历target, 还是要优先  判断接入网络资源是否足够，选择资源够的接入，并且更新资源快
     % 需要接入无人机才接入，在候选网络的时候应该要更改
@@ -30,14 +31,14 @@ for i = 101 : uav_rows + 100
             if DATA(i-100, 3) == 1 &&  BS(ap_id, 7) >= 1 % 说明这个基站可以接小数据
                 BS(ap_id, 7) = BS(ap_id,7) - 1; % 更新资源快
                 best_net = target_net(j,:); % 第j个就是最优的
-                throughput = throughput + target_net(j, size(target_net, 2)-1) + 1;
+                throughput = throughput + target_net(j, size(target_net, 2)-1)+2;
                 disp(['无人机 ', num2str(i),'  接入点 : ',num2str(ap_id)]);
                 flag = true;
                 break;
             elseif DATA(i-100, 3) == 2 && BS(ap_id, 7) >= 3 % 说明可以接大数据
                 BS(ap_id, 7) = BS(ap_id,7) - 3; % 更新资源快
                 best_net = target_net(j,:); % 第j个就是最优的
-                throughput = throughput + target_net(j, size(target_net, 2)-1) + 2;
+                throughput = throughput + target_net(j, size(target_net, 2)-1)+3;
                 disp(['无人机 ', num2str(i),'  接入点 : ', num2str(ap_id)]);
                 flag = true;
                 break;
@@ -46,14 +47,14 @@ for i = 101 : uav_rows + 100
             if DATA(i-100, 3) == 1 && UAV(ap_id - 100, 5) >= 1
                 UAV(ap_id - 100, 5) = UAV(ap_id - 100,5) - 1;
                 best_net = target_net(j,:);
-                throughput = throughput + target_net(j, size(target_net, 2)-1) + 1;
+                throughput = throughput + target_net(j, size(target_net, 2)-1) + 2;
                 disp(['无人机 ', num2str(i),'  接入点 : ', num2str(ap_id)]);
                 flag = true;
                 break;
             elseif DATA(i-100, 3) == 2 && UAV(ap_id - 100, 5) >= 3
                 UAV(ap_id - 100, 5) = UAV(ap_id - 100,5) - 3;
                 best_net = target_net(j,:);
-                throughput = throughput + target_net(j, size(target_net, 2)-1) + 2;
+                throughput = throughput + target_net(j, size(target_net, 2)-1) + 3;
                 disp(['无人机 ', num2str(i),'  接入点 : ', num2str(ap_id)]);
                 flag = true;
                 break;

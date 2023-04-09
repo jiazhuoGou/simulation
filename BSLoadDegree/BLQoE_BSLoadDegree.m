@@ -25,7 +25,7 @@ for i = 101 : uav_rows + 100
         ap_id = ap(1);
         if ap_id < 100 % 基站
             if  DATA(i-100, 3) == 1 &&  BS(ap_id, 7) >= 1 % 说明这个基站可以接小数据
-                BS(ap_id, 7) = BS(ap_id,7) - 1; % 更新资源快
+                BS(ap_id, 7) = BS(ap_id,7) - 2; % 更新资源快
                 best_net = target_net(j,:); % 第j个就是最优的
                 disp(['无人机 ', num2str(i),'  接入点 : ', num2str(ap_id)]);
                 flag = true;
@@ -39,7 +39,7 @@ for i = 101 : uav_rows + 100
             end
         else % 接入点是无人机
             if DATA(i-100, 3) == 1 && UAV(ap_id - 100, 5) >= 1
-                UAV(ap_id - 100, 5) = UAV(ap_id - 100,5) - 1;
+                UAV(ap_id - 100, 5) = UAV(ap_id - 100,5) - 2;
                 best_net = target_net(j,:);
                 disp(['无人机 ', num2str(i),'  接入点 : ', num2str(ap_id)]);
                 flag = true;
@@ -59,7 +59,7 @@ for i = 101 : uav_rows + 100
         best_net  = target_net(1);
         if (best_net(1) < 100)
             if  DATA(i-100, 3) == 1
-                BS(best_net(1), 7) = BS(best_net(1),7) - 1; % 更新资源快
+                BS(best_net(1), 7) = BS(best_net(1),7) - 2; % 更新资源快
             else
                 BS(best_net(1), 7) = BS(best_net(1),7) - 3;
             end

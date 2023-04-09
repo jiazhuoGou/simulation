@@ -41,7 +41,7 @@ for i = 1 : 4
 
     % 对比算法3 RSR
     time_cost_total(4, i) = RSR_TimeCost(selected_numbers);
-    
+    disp('RSR');
 
     % 一轮结束，无人机动一下
     UAV = random_fly(UAV, uav_rows);
@@ -50,6 +50,7 @@ for i = 1 : 4
     writematrix(DATA, 'D:\simulation\data\InfoData.xlsx', 'sheet', 'InfoDataSheet', 'writemode', 'replacefile'); 
 
 end
+time_cost_total = 100 * time_cost_total;
 writematrix(time_cost_total,'D:\simulation\TimeCost\TimeCost.xlsx','Sheet','Timecost', 'WriteMode','replacefile');
 
 

@@ -1,8 +1,9 @@
 %% 横坐标： 无人机终端数量
 user_num             =  [5;10;15;20];
 
+
 %% 纵坐标： 各类算法的信令开销
-SingalCost_BLQoE  = readmatrix('D:\simulation\SingalCost\SingalCost.xlsx','Sheet','SingalCost', 'Range','1:1');
+SingalCost_BLQoE  = readmatrix('D:\simulation\SingalCost\SingalCosts.xlsx','Sheet','SingalCost', 'Range','1:1');
 SingalCost_AHPSAW = readmatrix('D:\simulation\SingalCost\SingalCosts.xlsx','Sheet','SingalCost', 'Range','2:2');
 SingalCost_GRA = readmatrix('D:\simulation\SingalCost\SingalCosts.xlsx','Sheet','SingalCost', 'Range','3:3');
 SingalCost_RSR = readmatrix('D:\simulation\SingalCost\SingalCosts.xlsx','Sheet','SingalCost', 'Range','4:4');

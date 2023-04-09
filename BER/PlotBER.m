@@ -13,8 +13,9 @@ plot(user_num,BSLoadDegree_GRA, '--*g','LineWidth',1,'DisplayName','\fontname{Ti
 plot(user_num,BSLoadDegree_RSR,  '--^m','LineWidth',1,'DisplayName','\fontname{Times New Roman}RSR'); hold on;
 
 % grid on;
+ylim([1e-6, 1e-5]);
 xlabel('\fontname{宋体}无人机终端数量(台)','FontSize',14);
-ylabel('\fontname{宋体}误码率\fontname{Times New Roman}(10^-3)','FontSize',14);
+ylabel('\fontname{宋体}无人机终端平均误码率\fontname{Times New Roman}','FontSize',14);
 hold off;
 lgd = legend;
 lgd.NumColumns = 1;

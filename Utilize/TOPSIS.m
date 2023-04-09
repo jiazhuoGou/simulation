@@ -1,6 +1,6 @@
 function [ TargetNet ] = TOPSIS( CanNet )
 %TOPSIS 输入一个候选网络矩阵，n行5列，第一列是接入点编号
-%   输出一个排好序的矩阵，那么就代表选网完成 n行6列
+%   输出一个排好序的矩阵，那么就代表选网完成 n行6列,第6列是分数
     
     [UAV_CanNet_Rows, UAV_CanNet_Cols] = size(CanNet);
     %% 数据正向化,这里不用，只需要把第一列id列排除
@@ -47,11 +47,24 @@ function [ TargetNet ] = TOPSIS( CanNet )
     %TargetNet([1, idx], :) = TargetNet([idx, 1], :);
     TargetNet = sortrows(TargetNet, 6, 'ascend');
 
-
-    if UAV_CanNet_Rows >= 2 && TargetNet(1,1) > 100 && TargetNet(2, 1) < 100 && TargetNet(2,4) - 0.05 <= TargetNet(1, 4)
+    
+    if UAV_CanNet_Rows >= 2 && TargetNet(1,1) > 100 && TargetNet(2, 1) < 100 
         % 差距不大还是要选基站
         TargetNet([1 2], :) = TargetNet([2 1], :); 
     end
+    
+    % 如果第一个是宏基站，要把它调整为最前面的微基站或者无线局域网或者无人机
+    if (TargetNet(1, 1) <= 2)    
+        for i = 1 : size(TargetNet, 1)
+            if TargetNet(i, 1) > 2 % 交换
+                TargetNet([1 i], :) = TargetNet([i, 1], :);
+                break;
+            end
+        end
+    end
+
+
+
 end
 
 %% 数据正向化
