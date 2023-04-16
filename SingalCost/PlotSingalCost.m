@@ -1,5 +1,5 @@
 %% 横坐标： 无人机终端数量
-user_num             =  [5;10;15;20];
+user_num             =  [2;4;6;8;10;12;14;16;18;20];
 
 
 %% 纵坐标： 各类算法的信令开销
@@ -14,6 +14,7 @@ plot(user_num,SingalCost_GRA, '--*g','LineWidth',1,'DisplayName','\fontname{Time
 plot(user_num,SingalCost_RSR,  '--^m','LineWidth',1,'DisplayName','\fontname{Times New Roman}RSR'); hold on;
 
 % grid on;
+ylim([0, 4]);
 xlabel('\fontname{宋体}无人机终端数量(台)','FontSize',14);
 ylabel('\fontname{宋体}信令开销占总资源消耗的比值\fontname{Times New Roman}(%)','FontSize',14);
 hold off;

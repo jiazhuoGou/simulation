@@ -18,13 +18,13 @@ DATA = readmatrix('D:\simulation\data\InfoData.xlsx','Sheet','InfoDataSheet');
 [data_rows, data_cols] = size(DATA);
 algorithm_counts = 4;
 % 每行是一个算法的时间开销，每列是各算法在确定号无人机个数的时候平均的开销时间
-SingalCost_total = zeros(algorithm_counts, 4);
+SingalCost_total = zeros(algorithm_counts, 10);
 
 range = 101:120;  % 定义范围
 %% 没5 10 15 20 计算吞吐量, 所以要先对UAV矩阵随机抽取几个，总共4轮循环
-for i = 1 : 4
+for i = 1 : 10
     % 先从101-120随机抽 i * 5 个编号，代表要回传的无人机
-    rand_indices = randperm(length(range), i * 5);  % 从范围内随机抽取i * 5个整数的索引
+    rand_indices = randperm(length(range), i * 2);  % 从范围内随机抽取i * 5个整数的索引
     selected_numbers = range(rand_indices);  % 根据索引获取对应的整数，即需要回传的无人机
 
     % 自己的算法
