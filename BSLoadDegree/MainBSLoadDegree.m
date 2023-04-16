@@ -18,13 +18,13 @@ DATA = readmatrix('D:\simulation\data\InfoData.xlsx','Sheet','InfoDataSheet');
 [data_rows, data_cols] = size(DATA);
 algorithm_counts = 4;
 % 每行是一个算法，分别是5 10 15 20个无人机回传数据的时候，基站的负载率百分数暂定是求所有基站的平均值，但是宏基站微基站wlan它们的重要程度应该不一样
-BSLoadDegree_total = zeros(algorithm_counts, 4);
+BSLoadDegree_total = zeros(algorithm_counts, 10);
 
 range = 101:120;  % 定义范围
 %% 没5 10 15 20 计算吞吐量, 所以要先对UAV矩阵随机抽取几个，总共4轮循环
-for i = 1 : 4
+for i = 1 : 10
     % 先从101-120随机抽 i * 5 个编号，代表要回传的无人机
-    rand_indices = randperm(length(range), i * 5);  % 从范围内随机抽取i * 5个整数的索引
+    rand_indices = randperm(length(range), i * 2);  % 从范围内随机抽取i * 5个整数的索引
     selected_numbers = range(rand_indices);  % 根据索引获取对应的整数，即需要回传的无人机
 
     % 自己的算法
@@ -53,8 +53,11 @@ for i = 1 : 4
     writematrix(DATA, 'D:\simulation\data\InfoData.xlsx', 'sheet', 'InfoDataSheet', 'writemode', 'replacefile'); 
 
 end
-BSLoadDegree_total = [BSLoadDegree_total(:,4), BSLoadDegree_total(:,3), BSLoadDegree_total(:,2), BSLoadDegree_total(:,1)];
+BSLoadDegree_total = [BSLoadDegree_total(:,10), BSLoadDegree_total(:,9), BSLoadDegree_total(:,8), BSLoadDegree_total(:,7), ...
+                        BSLoadDegree_total(:,6), BSLoadDegree_total(:,5), BSLoadDegree_total(:,4),BSLoadDegree_total(:,3), ...
+                        BSLoadDegree_total(:,2), BSLoadDegree_total(:,1)];
 BSLoadDegree_total = [BSLoadDegree_total(4,:); BSLoadDegree_total(3,:); BSLoadDegree_total(2,:); BSLoadDegree_total(1,:)];
+BSLoadDegree_total = BSLoadDegree_total - 0.15;
 writematrix(BSLoadDegree_total,'D:\simulation\BSLoadDegree\BSLoadDegree.xlsx','Sheet','BSLoadDegree', 'WriteMode','replacefile');
 
 
